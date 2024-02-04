@@ -19,7 +19,7 @@ const NavbarComponent = (args) => {
   const [isOpen, setIsOpen] = useState(false);
   const [expand, setExpand] = useState("");
   const toggle = () => setIsOpen(!isOpen);
-  console.log(isOpen);
+  // console.log(isOpen);
   return (
     <div className="navbar__top">
       <Container>

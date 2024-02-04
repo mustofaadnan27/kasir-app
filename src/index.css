@@ -11,3 +11,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.category-active.list-group-item {
+  background-color: #22668a;
+  color: white;
+}
