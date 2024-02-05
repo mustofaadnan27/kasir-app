@@ -9,10 +9,10 @@ import {
 } from "reactstrap";
 import { numberWithCommas } from "../utils/NumberFormat";
 
-const Menus = ({ menu }) => {
+const Menus = ({ menu, masukKeranjang }) => {
   return (
     <Col xs={6} md={4} className="mb-4">
-      <Card className="shadow">
+      <Card className="shadow" onClick={()=> masukKeranjang(menu)}>
         <img
           alt="Sample"
           src={`assets/images/${menu.category.nama}/${menu.gambar}`}
