@@ -40,6 +40,24 @@ export default class App extends Component {
         console.log(error);
       });
   }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   return this.state.keranjangs !== nextState.keranjangs;
+  // }
+
+  componentDidUpdate(prevState) {
+    if(this.state.keranjangs !== prevState.keranjangs) {
+      // axios
+      // .get(API_URL + "/keranjangs")
+      // .then((res) => {
+      //   const keranjangs = res.data;
+      //   this.setState({ keranjangs });
+      // })
+      // .catch((error) => {
+      //   console.log("Error yaa ", error);
+      // });
+    }
+  }
+  
 
   changeCategory = (value) => {
     this.setState({
@@ -62,15 +80,14 @@ export default class App extends Component {
     axios
     .get(`${API_URL}/keranjangs?product.id=${value.id}`)
     .then((res) => {
+      console.log(this.state.keranjangs)
         if(res.data.length === 0) {
           const keranjang = {
             jumlah:1,
             total_harga:value.harga,
             product:value
          }
-         this.setState({
-          keranjangs:keranjang
-         })
+         this.setState({keranjangs:keranjang})
          axios
          .post(`${API_URL}/keranjangs`, keranjang)
          .then(res => {
@@ -81,6 +98,14 @@ export default class App extends Component {
              timer: 1500
            });
          })
+         .catch((error) => {
+          console.log("Error yaa ", error);
+        });
+        //  axios
+        //  .get(`${API_URL}/keranjangs`)
+        //  .then(res => {
+        //   this.setState({keranjangs:res.data})
+        //  })
         } else {
           const keranjang = {
             jumlah:res.data[0].jumlah+1,
@@ -96,19 +121,23 @@ export default class App extends Component {
              icon: "success",
              timer: 1500
            });
+         this.setState({keranjangs:keranjang})
            
          })
+         .catch((error) => {
+          console.log("Error yaa ", error);
+        })
         }
     })
     .catch((error) => { 
       console.log(error);
     });
-
+ 
   
   }
 
   render() {
-    console.log(this.state.keranjangs);
+    // console.log(this.state.keranjangs);
     const { menus, categoriYangDipilih, keranjangs } = this.state;
     // console.log(keranjangs);
     return (
@@ -130,7 +159,7 @@ export default class App extends Component {
                     ))}
                     </Row>
                 </Col>
-                <Hasil  />
+                <Hasil keranjangs={keranjangs} />
               </Row>
             </Container>
           </div>
