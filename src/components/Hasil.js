@@ -4,6 +4,7 @@ import { API_URL } from "../utils/Constant";
 import axios from "axios";
 import { numberWithCommas } from "../utils/NumberFormat";
 import { ListGroup, ListGroupItem } from "reactstrap";
+import TotalBayar from "./TotalBayar";
 
 const Hasil = ({ keranjangs }) => {
   const [dataKeranjang, setDataKeranjang] = useState([]);
@@ -20,8 +21,8 @@ const Hasil = ({ keranjangs }) => {
 
     fetchKeranjangs();
   }, [keranjangs]); // Panggil fetchKeranjangs setiap kali keranjangs berubah
-console.log(keranjangs)
-  console.log(dataKeranjang);
+// console.log(keranjangs)
+  // console.log(dataKeranjang);
 
   return (
     <Col md={3} mt="2">
@@ -55,6 +56,7 @@ console.log(keranjangs)
           ))}
         </ListGroup>
       )}
+      <TotalBayar dataKeranjang={dataKeranjang} />
     </Col>
   );
 };
