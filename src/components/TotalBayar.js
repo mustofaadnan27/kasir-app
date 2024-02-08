@@ -1,7 +1,9 @@
 import React from "react";
 import { Button, Col, Row } from "reactstrap";
 import { numberWithCommas } from "../utils/NumberFormat";
-const TotalBayar = ({ dataKeranjang }) => {
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+const TotalBayar = ({ dataKeranjang, handlePayShop }) => {
 //   console.log(dataKeranjang);
 //   const keranjangs = dataKeranjang.filter((keranjang) => keranjang.total_harga).reduce((total, keranjang) => {
 //     return total+=keranjang.total_harga
@@ -17,7 +19,8 @@ const TotalBayar = ({ dataKeranjang }) => {
              <h4>Total Bayar :<strong className="ps-5">{numberWithCommas(keranjangs)}</strong></h4>
 
              <div className="pe-0 text-start">
-             <Button className="btn-primary mb-3" style={{width:"250px"}}><strong>Bayar</strong></Button>
+                    
+             <Button onClick={()=>handlePayShop(keranjangs)} className="btn-primary mb-3" style={{width:"250px"}}><strong><FontAwesomeIcon className="me-1" icon={faCartShopping} />Bayar</strong></Button>
              </div>
         </Col>
       </Row>

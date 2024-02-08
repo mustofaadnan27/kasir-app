@@ -5,8 +5,14 @@ import axios from "axios";
 import { numberWithCommas } from "../utils/NumberFormat";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import TotalBayar from "./TotalBayar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import { Link, matchRoutes } from "react-router-dom";
+import Sukses from "../pages/Sukses";
+import { useNavigate } from "react-router-dom";
 
 const Hasil = ({ keranjangs }) => {
+  const navigate = useNavigate();
   const [dataKeranjang, setDataKeranjang] = useState([]);
 
   useEffect(() => {
@@ -23,6 +29,20 @@ const Hasil = ({ keranjangs }) => {
   }, [keranjangs]); // Panggil fetchKeranjangs setiap kali keranjangs berubah
 // console.log(keranjangs)
   // console.log(dataKeranjang);
+  const handlePayShop = (total_bayar) => {
+    const pesanan = {
+      total_bayar:total_bayar,
+      menus:keranjangs
+    }
+    axios.post(`${API_URL}/pesanans`, pesanan)
+    .then(res => {
+      navigate("/sukses")
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  }
+  
 
   return (
     <Col md={3} mt="2">
@@ -56,7 +76,7 @@ const Hasil = ({ keranjangs }) => {
           ))}
         </ListGroup>
       )}
-      <TotalBayar dataKeranjang={dataKeranjang} />
+      <TotalBayar handlePayShop={handlePayShop} dataKeranjang={dataKeranjang} />
     </Col>
   );
 };
