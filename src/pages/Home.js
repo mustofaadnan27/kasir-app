@@ -21,45 +21,52 @@ export default class Home extends Component {
   }
 
   componentDidMount() {
-    axios
-      .get(`${API_URL}/products?category.nama=${this.state.categoriYangDipilih}`)
-      .then((res) => {
-        const menus = res.data;
-        this.setState({ menus }); //menus:menus
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    axios
-      .get(`${API_URL}/keranjangs`)
-      .then((res) => {
-        const keranjangs = res.data;
-        this.setState({ keranjangs }); //menus:menus
+    const productsRequest = axios.get(`${API_URL}/products?category.nama=${this.state.categoriYangDipilih}`);
+    const keranjangsRequest = axios.get(`${API_URL}/keranjangs`);
+  
+    Promise.all([productsRequest, keranjangsRequest])
+      .then(([productsRes, keranjangsRes]) => {
+        const menus = productsRes.data;
+        const keranjangs = keranjangsRes.data;
+  
+        this.setState({ menus, keranjangs });
       })
       .catch((error) => {
         console.log(error);
       });
   }
+  
   // shouldComponentUpdate(nextProps, nextState) {
   //   return this.state.keranjangs !== nextState.keranjangs;
   // }
 
-  componentDidUpdate(prevState) {
-    if(this.state.keranjangs !== prevState.keranjangs) {
-      // axios
-      // .get(API_URL + "/keranjangs")
-      // .then((res) => {
-      //   const keranjangs = res.data;
-      //   this.setState({ keranjangs });
-      // })
-      // .catch((error) => {
-      //   console.log("Error yaa ", error);
-      // });
-    }
+  componentDidUpdate(prevProps, prevState) {
+    // console.log(prevState);
+    const stateKeranjang = this.state.keranjangs
+    console.log(prevState.keranjangs.length);
+ 
+    stateKeranjang.map((keranjang) => {
+      if( prevState.keranjangs.length === 0 && this.state.keranjangs.length > 0) {
+        return null
+      }else if(prevState.keranjangs.length !== this.state.keranjangs.length) {
+  
+        console.log("Keranjangs berubah!");
+           axios
+        .get(API_URL + "/keranjangs")
+        .then((res) => {
+          const keranjangs = res.data;
+          this.setState({ keranjangs });
+        })
+        .catch((error) => {
+          console.log("Error yaa ", error);
+        });
+      }
+
+    })
+    
   }
   
-
+  
   changeCategory = (value) => {
     this.setState({
       categoriYangDipilih: value, 
@@ -88,7 +95,11 @@ export default class Home extends Component {
             total_harga:value.harga,
             product:value
          }
-         this.setState({keranjangs:keranjang})
+        //  console.log({...this.state.keranjangs})
+         const keranjangg = [...this.state.keranjangs]
+         keranjangg.push(keranjang);
+         console.log(keranjangg);
+         this.setState({keranjangs:keranjangg})
          axios
          .post(`${API_URL}/keranjangs`, keranjang)
          .then(res => {
