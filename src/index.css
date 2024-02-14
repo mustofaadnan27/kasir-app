@@ -15,4 +15,5 @@ code {
   background-color: #22668a;
   color: white;
 }
+div.alert{padding:5px; margin-top: 1px; top: 105%;}
 button.btn-primary{background-color: #22668a; border: unset;}
