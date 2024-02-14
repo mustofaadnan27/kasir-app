@@ -200,6 +200,23 @@
         }
       },
       "id": 1
+    },
+    {
+      "jumlah": 2,
+      "total_harga": 24000,
+      "product": {
+        "id": 3,
+        "kode": "K-03",
+        "nama": "Nasi Rames",
+        "harga": 12000,
+        "is_ready": true,
+        "gambar": "nasi-rames.jpg",
+        "category": {
+          "id": 1,
+          "nama": "Makanan"
+        }
+      },
+      "id": 2
     }
   ],
   "pesanans": [
