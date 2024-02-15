@@ -22,11 +22,13 @@ const ModalKeranjang = ({
   modalCart,
   handleKeterangan,
   isVisible,
-  handleSubmit
+  handleSubmit,
+  dataKeranjang
 }) => {
   if (!cart || !cart.product || cart.total_harga === undefined) {
     return null;
   }
+  console.log(cart);
   return (
     <>
       <Modal isOpen={modal} toggle={toggle} {...args}>
@@ -74,7 +76,7 @@ const ModalKeranjang = ({
                 name="keterangan"
                 type="textarea"
                 placeholder="Contoh : Pedas, Asin"
-                value={keterangan}
+                value={modalCart.keterangan}
                 onChange={handleKeterangan}
               />
             </FormGroup>
