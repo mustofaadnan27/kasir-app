@@ -15,6 +15,7 @@ import ModalKeranjang from "./ModalKeranjang";
 const Hasil = ({ keranjangs, args }) => {
   const navigate = useNavigate();
   const [dataKeranjang, setDataKeranjang] = useState([]);
+  const [changeKeranjangs, setChangeKeranjangs] = useState(false);
   const [modalCart, setModalCart] = useState({
     id:null,
     jumlah: 0,
@@ -25,8 +26,10 @@ const Hasil = ({ keranjangs, args }) => {
   const [modal, setModal] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    setChangeKeranjangs(!changeKeranjangs)
     const data = {
       id:cart.id,
       jumlah:modalCart.jumlah,
@@ -42,8 +45,9 @@ const Hasil = ({ keranjangs, args }) => {
       console.log(error);
     })
     console.log(data);
-
   }
+
+
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setIsVisible(false);
@@ -52,19 +56,22 @@ const Hasil = ({ keranjangs, args }) => {
     return () => clearTimeout(timeoutId);
   }, [isVisible]);
 
+
   const toggle = (keranjang) => {
     setModal(!modal);
     setCart(keranjang);
     const harga = keranjang.total_harga / keranjang.jumlah;
     console.log(harga);
-    console.log(cart);
+    console.log(keranjang);
     setModalCart({
       jumlah: keranjang.jumlah,
       total_harga: keranjang.total_harga,
-      keterangan: "",
+      keterangan: keranjang.keterangan,
     });
     console.log(keranjang.jumlah);
   };
+
+  
   const handleKeterangan = (event) => {
     setModalCart({
       jumlah: modalCart.jumlah,
@@ -72,7 +79,10 @@ const Hasil = ({ keranjangs, args }) => {
       keterangan: event.target.value,
     });
     console.log(modalCart);
+    console.log(cart)
   };
+
+
   const handleMin = () => {
     if (modalCart.jumlah > 1) {
       setModalCart({
@@ -85,6 +95,7 @@ const Hasil = ({ keranjangs, args }) => {
     }
   };
 
+
   const handlePlus = () => {
     const harga = modalCart.total_harga / modalCart.jumlah;
     console.log(harga);
@@ -96,9 +107,11 @@ const Hasil = ({ keranjangs, args }) => {
     console.log(modalCart.jumlah);
   };
 
+
   useEffect(() => {
     console.log(modalCart);
   }, [modalCart]);
+
 
   useEffect(() => {
     const fetchKeranjangs = async () => {
@@ -109,9 +122,11 @@ const Hasil = ({ keranjangs, args }) => {
         console.error("Error fetching keranjangs:", error);
       }
     };
-
-    fetchKeranjangs();
-  }, [keranjangs]); // Panggil fetchKeranjangs setiap kali keranjangs berubah
+  
+      fetchKeranjangs();
+  }, [keranjangs, changeKeranjangs]);
+  
+ // Panggil fetchKeranjangs setiap kali keranjangs berubah
   // console.log(keranjangs)
   // console.log(dataKeranjang);
   const handlePayShop = (total_bayar) => {
@@ -128,6 +143,8 @@ const Hasil = ({ keranjangs, args }) => {
         console.log(error);
       });
   };
+
+
   return (
     <Col md={3} mt="2">
       <h4>
@@ -174,6 +191,7 @@ const Hasil = ({ keranjangs, args }) => {
         handleKeterangan={handleKeterangan}
         isVisible={isVisible}
         handleSubmit={handleSubmit}
+        dataKeranjang={dataKeranjang}
       />
 
       <TotalBayar handlePayShop={handlePayShop} dataKeranjang={dataKeranjang} />
