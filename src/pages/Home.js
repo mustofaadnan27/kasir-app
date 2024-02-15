@@ -40,31 +40,47 @@ export default class Home extends Component {
   //   return this.state.keranjangs !== nextState.keranjangs;
   // }
 
-  componentDidUpdate(prevProps, prevState) {
-    // console.log(prevState);
-    const stateKeranjang = this.state.keranjangs
-    console.log(prevState.keranjangs.length);
- 
-    stateKeranjang.map((keranjang) => {
-      if( prevState.keranjangs.length === 0 && this.state.keranjangs.length > 0) {
-        return null
-      }else if(prevState.keranjangs.length !== this.state.keranjangs.length) {
-  
-        console.log("Keranjangs berubah!");
-           axios
-        .get(API_URL + "/keranjangs")
-        .then((res) => {
-          const keranjangs = res.data;
-          this.setState({ keranjangs });
-        })
-        .catch((error) => {
-          console.log("Error yaa ", error);
-        });
-      }
-
-    })
+  // componentDidUpdate(prevProps, prevState) {
+  //   // console.log(prevState);
+  //   const stateKeranjang = this.state.keranjangs
+  //   // console.log(prevState.keranjangs.length);
+  //   const obj1 = JSON.stringify(stateKeranjang);
+  //   const obj2 = JSON.stringify(prevState.keranjangs);
+  //   console.log(obj2);
+  //   if(Array.isArray(prevState.keranjangs) && prevState.keranjangs > 0) {
+  //     console.log("aneh ya emang");
+  //     if(obj1 !== obj2) {
+  //        console.log("Keranjangs berubah!");
     
-  }
+  //     }
+  //   }
+
+ 
+    // stateKeranjang.map((keranjang) => {
+    //   console.log(prevState.keranjangs)
+    //   const obj1 = JSON.stringify(this.state.keranjangs)
+    //   // if(Array.isArray(prevState.keranjangs.length !== null)){
+    //     const obj2 = JSON.stringify(prevState.keranjangs)
+    //   // }
+    
+    //   if( prevState.keranjangs.length === 0 && this.state.keranjangs.length > 0) {
+    //     return null
+    //   }else if(obj1 !== obj2) {
+  
+    //     console.log("Keranjangs berubah!");
+    //        axios
+    //     .get(API_URL + "/keranjangs")
+    //     .then((res) => {
+    //       const keranjangs = res.data;
+    //       this.setState({ keranjangs });
+    //     })
+    //     .catch((error) => {
+    //       console.log("Error yaa ", error);
+    //     });
+    //   }
+
+    // })
+  // }
   
   
   changeCategory = (value) => {
