@@ -185,8 +185,8 @@
   ],
   "keranjangs": [
     {
-      "jumlah": 1,
-      "total_harga": 10000,
+      "id": 1,
+      "jumlah": 2,
       "product": {
         "id": 6,
         "kode": "K-06",
@@ -199,11 +199,12 @@
           "nama": "Makanan"
         }
       },
-      "id": 1
+      "total_harga": 20000,
+      "keterangan": "pedas full"
     },
     {
-      "jumlah": 2,
-      "total_harga": 24000,
+      "id": 2,
+      "jumlah": 1,
       "product": {
         "id": 3,
         "kode": "K-03",
@@ -216,7 +217,26 @@
           "nama": "Makanan"
         }
       },
-      "id": 2
+      "total_harga": 12000,
+      "keterangan": "tambahin kecap dikit"
+    },
+    {
+      "id": 3,
+      "jumlah": 2,
+      "product": {
+        "id": 12,
+        "kode": "K-012",
+        "nama": "Es Jeruk",
+        "harga": 7000,
+        "is_ready": true,
+        "gambar": "es-jeruk.jpg",
+        "category": {
+          "id": 2,
+          "nama": "Minuman"
+        }
+      },
+      "total_harga": 14000,
+      "keterangan": "jangan terlalu dingin"
     }
   ],
   "pesanans": [
